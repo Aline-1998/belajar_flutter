@@ -24,9 +24,12 @@ class Profile extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [Icon(Icons.location_on), Text("Papua")],
+              children: [Icon(Icons.location_on), Text("Jakarta Utara")],
             ),
-            Text("Seamin Tapi Tidak Seiman", style: TextStyle(fontSize: 20)),
+            Text(
+              "Manusia Baik Hati dan Tidak Sombong",
+              style: TextStyle(fontSize: 20),
+            ),
           ],
         ),
       ),
