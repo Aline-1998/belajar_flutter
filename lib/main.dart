@@ -1,4 +1,5 @@
-import 'package:belajar_flutter/day_5/scaffold.dart';
+import 'package:belajar_flutter/coba.dart/coba.dart';
+import 'package:belajar_flutter/coba.dart/coba2.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const Profile(),
+      home: const ProfilePage(),
     );
   }
 }
