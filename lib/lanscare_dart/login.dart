@@ -15,9 +15,7 @@ class LansCareApp1 extends StatelessWidget {
 }
 
 class LoginPage extends StatefulWidget {
-  final _formKey = GlobalKey<FormState>();
-
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
