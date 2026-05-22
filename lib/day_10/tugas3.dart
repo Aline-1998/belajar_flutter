@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LansCareApp extends StatelessWidget {
-  const LansCareApp({super.key});
+class LansCare extends StatelessWidget {
+  const LansCare({super.key});
 
   @override
   Widget build(BuildContext context) {
