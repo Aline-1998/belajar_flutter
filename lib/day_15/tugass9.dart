@@ -56,7 +56,10 @@ class Tugass9 extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(color: Colors.white),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: Column(
                   children: [
                     Container(
@@ -97,7 +100,10 @@ class Tugass9 extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(color: Colors.white),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: Column(
                   children: [
                     Container(
