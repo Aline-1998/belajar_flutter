@@ -1,3 +1,4 @@
+import 'package:belajar_flutter/lanscare_dart/login2.dart';
 import 'package:flutter/material.dart';
 
 class LansCareApp1 extends StatelessWidget {
@@ -9,7 +10,7 @@ class LansCareApp1 extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'LansCare',
       theme: ThemeData(primaryColor: const Color(0xFF0097A7)),
-      home: LoginPage(),
+      home: const LoginPage(),
     );
   }
 }
@@ -22,8 +23,89 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool obscurePassword = true;
+  final bool obscurePassword = true;
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController namaController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController paswordController = TextEditingController();
+  final TextEditingController nikController = TextEditingController();
+  final TextEditingController alamatController = TextEditingController();
+  final TextEditingController ttlController = TextEditingController();
+  final TextEditingController telpController = TextEditingController();
+
+  void showDataDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(15),
+          ),
+
+          // backgroundColor: Color(0xFF0097A7),
+          title: const Text(
+            "Konfirmasi Data",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Nama Lengkap: ${namaController.text}"),
+              Text("Alamat Lengkap : ${alamatController.text}"),
+              Text("Nik : ${nikController.text}"),
+              Text("Email : ${emailController.text}"),
+              Text("No. Telpon : ${telpController.text}"),
+              Text("Tempat Tanggal Lahir : ${ttlController.text}"),
+              Text("Pasword : ${paswordController.text}"),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Batal", style: TextStyle(color: Colors.red)),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF0097A7),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ConfirmationPage(
+                      nama: namaController.text,
+                      alamat: alamatController.text,
+                    ),
+                  ),
+                );
+              },
+              child: const Text(
+                "Lanjut",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    namaController.dispose();
+    emailController.dispose();
+    telpController.dispose();
+    ttlController.dispose();
+    nikController.dispose();
+    alamatController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Color cyanGreen = const Color(0xFF0097A7);
@@ -78,64 +160,123 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 35),
 
-                  // //No kk
-                  // TextField(
-                  //   decoration: InputDecoration(
-                  //     labelText: "No. kk",
-                  //     hintText: "Masukan No. Kartu Keluarga",
-                  //     prefixIcon: const Icon(Icons.family_restroom),
-                  //     border: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(12),
-                  //     ),
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 15),
-
-                  // // nik
-                  // TextField(
-                  //   decoration: InputDecoration(
-                  //     labelText: "Nik",
-                  //     hintText: "Masukan Nik",
-                  //     prefixIcon: const Icon(Icons.perm_identity),
-                  //     border: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(12),
-                  //     ),
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 15),
-
-                  // //Tempat Tanggal Lahir
-                  // TextField(
-                  //   decoration: InputDecoration(
-                  //     labelText: "Tempat Tanggal Lahir",
-                  //     hintText: "Masukan Tempat Tanggal Lahir",
-                  //     prefixIcon: const Icon(Icons.calendar_month),
-                  //     border: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(12),
-                  //     ),
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 15),
-
-                  // //No Telp
-                  // TextField(
-                  //   decoration: InputDecoration(
-                  //     hintText: "No Telp",
-                  //     prefixIcon: const Icon(Icons.email_outlined),
-                  //     border: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(12),
-                  //     ),
-                  //   ),
-                  // ),
-
-                  // const SizedBox(height: 15),
-
-                  // Email
                   Form(
                     key: _formKey,
                     child: Column(
                       children: [
                         TextFormField(
+                          controller: namaController,
+                          decoration: InputDecoration(
+                            labelText: "Nama Lengkap",
+                            hintText: "Masukan Nama Lengkap",
+                            prefixIcon: const Icon(Icons.perm_identity),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Nama Lengkap";
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 15),
+
+                        //No kk
+                        // TextFormField(
+                        //   decoration: InputDecoration(
+                        //     labelText: "No. kk",
+                        //     hintText: "Masukan No. Kartu Keluarga",
+                        //     prefixIcon: const Icon(Icons.family_restroom),
+                        //     border: OutlineInputBorder(
+                        //       borderRadius: BorderRadius.circular(12),
+                        //     ),
+                        //   ),
+                        //   validator: (value) {
+                        //     if (value == null || value.isEmpty) {
+                        //       return "No. kk ";
+                        //     }
+                        //     return null;
+                        //   },
+                        // ),
+                        // const SizedBox(height: 15),
+
+                        // nik
+                        TextFormField(
+                          controller: nikController,
+                          decoration: InputDecoration(
+                            labelText: "Nik",
+                            hintText: "Masukan Nik",
+                            prefixIcon: const Icon(Icons.perm_identity),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Nik";
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 15),
+                        TextFormField(
+                          controller: alamatController,
+                          decoration: InputDecoration(
+                            labelText: "Alamat Lengkap",
+                            hintText: "Masukan Alamat Lengkap",
+                            prefixIcon: const Icon(Icons.family_restroom),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Alamat Lengkap";
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 15),
+
+                        //Tempat Tanggal Lahir
+                        TextField(
+                          controller: ttlController,
+                          decoration: InputDecoration(
+                            labelText: "Tempat Tanggal Lahir",
+                            hintText: "Masukan Tempat Tanggal Lahir",
+                            prefixIcon: const Icon(Icons.calendar_month),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+
+                        //No Telp
+                        TextField(
+                          controller: telpController,
+                          decoration: InputDecoration(
+                            labelText: "No. Telpon (Opsional)",
+                            hintText: "Masukan No. Telp",
+                            prefixIcon: const Icon(Icons.email_outlined),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 15),
+
+                        // Email
+                        // Form(
+                        //   key: _formKey,
+                        //   child: Column(
+                        //     children: [
+                        TextFormField(
+                          controller: emailController,
                           decoration: InputDecoration(
                             labelText: "Email",
                             labelStyle: TextStyle(fontSize: 20),
@@ -150,6 +291,8 @@ class _LoginPageState extends State<LoginPage> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "masukan email";
+                            } else if (!value.contains('@')) {
+                              return "Format email tidak valid";
                             }
                             return null;
                           },
@@ -161,7 +304,7 @@ class _LoginPageState extends State<LoginPage> {
                         TextFormField(
                           obscureText: true,
                           obscuringCharacter: "*",
-
+                          controller: paswordController,
                           decoration: InputDecoration(
                             labelText: "Pasword",
                             labelStyle: TextStyle(fontSize: 20),
@@ -179,7 +322,7 @@ class _LoginPageState extends State<LoginPage> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 25),
 
                         SizedBox(
                           width: double.infinity,
@@ -195,9 +338,7 @@ class _LoginPageState extends State<LoginPage> {
 
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                print("berhasil login");
-                              } else {
-                                print("eror");
+                                showDataDialog();
                               }
                             },
 
@@ -210,69 +351,61 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 15),
+                        const Text(
+                          "atau",
+                          style: TextStyle(fontSize: 20, color: Colors.black54),
+                        ),
+
+                        const SizedBox(height: 15),
+
+                        // Tombol Kader
+                        SizedBox(
+                          width: double.infinity,
+                          height: 50,
+
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: cyanGreen),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+
+                            onPressed: () {},
+
+                            child: Text(
+                              "Masuk sebagai Kader",
+                              style: TextStyle(fontSize: 20, color: cyanGreen),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 15),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Belum punya akun? ",
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black54,
+                              ),
+                            ),
+
+                            Text(
+                              "Daftar",
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: cyanGreen,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                  ),
-
-                  const SizedBox(height: 15),
-
-                  const Text(
-                    "atau",
-                    style: TextStyle(fontSize: 20, color: Colors.black54),
-                  ),
-
-                  const SizedBox(height: 15),
-
-                  // Tombol Kader
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: cyanGreen),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-
-                      onPressed: () {},
-
-                      child: Text(
-                        "Masuk sebagai Kader",
-                        style: TextStyle(fontSize: 20, color: cyanGreen),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 15),
-
-                  // TextButton(
-                  //   onPressed: () {},
-                  //   child: Text(
-                  //     "Lupa password?",
-                  //     style: TextStyle(fontSize: 25, color: cyanGreen),
-                  //   ),
-                  // ),
-
-                  // SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Belum punya akun? ",
-                        style: TextStyle(fontSize: 20, color: Colors.black54),
-                      ),
-
-                      Text(
-                        "Daftar",
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: cyanGreen,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
