@@ -1,4 +1,6 @@
-import 'package:belajar_flutter/lanscare_dart/login2.dart';
+import 'package:belajar_flutter/day_19/database/preference_handler.dart';
+import 'package:belajar_flutter/extension/navigator.dart';
+import 'package:belajar_flutter/lanscare_dart/db.dart';
 import 'package:flutter/material.dart';
 
 class LansCareApp1 extends StatelessWidget {
@@ -71,18 +73,22 @@ class _LoginPageState extends State<LoginPage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF0097A7),
               ),
-              onPressed: () {
-                Navigator.pop(context);
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ConfirmationPage(
-                      nama: namaController.text,
-                      alamat: alamatController.text,
-                    ),
-                  ),
-                );
+              onPressed: () async {
+                await PreferenceHandler.setLogin(true);
+
+                Navigator.pop(context);
+                context.pushAndRemoveAll(DashBoard());
+
+                // Navigator.push(
+                //   // context,
+                //   // MaterialPageRoute(
+                //   //   builder: (context) => ConfirmationPage(
+                //   //     nama: namaController.text,
+                //   //     alamat: alamatController.text,
+                //   //   ),
+                //   // ),
+                // );
               },
               child: const Text(
                 "Lanjut",
@@ -287,7 +293,6 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "masukan email";
@@ -336,7 +341,8 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
 
-                            onPressed: () {
+                            onPressed: () async {
+                              await PreferenceHandler.setLogin(true);
                               if (_formKey.currentState!.validate()) {
                                 showDataDialog();
                               }
@@ -380,9 +386,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-
                         const SizedBox(height: 15),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
